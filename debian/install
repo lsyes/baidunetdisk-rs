@@ -1,0 +1,6 @@
+baidunetdisk-rs /usr/bin/
+# SVG icon set and branding used by the runtime asset loader. `assets_root()`
+# looks for `assets/icons` and `assets/branding` next to the executable, so the
+# tree is installed as /usr/lib/baidunetdisk-rs/assets and reachable through
+# the symlink /usr/lib/baidunetdisk-rs/assets (created in debian/rules).
+assets/* usr/lib/baidunetdisk-rs/assets/

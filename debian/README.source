@@ -1,0 +1,28 @@
+baidunetdisk-rs for Debian
+----------------------------
+
+The build uses the cargo debhelper build system. Upstream depends on the
+kasumi GUI framework through path dependencies inside the original workspace:
+
+    kasumi        = { path = "../kasumi/crates/kasumi" }
+    kasumi-core   = { path = "../kasumi/crates/kasumi-core" }
+    kasumi-backend= { path = "../kasumi/crates/kasumi-backend" }
+
+ 1. Vendor the dependency closure:
+
+        cd kasumi && cargo vendor vendor/ > ../baidunetdisk-rs/.cargo/config.toml
+
+    (or ship the kasumi crates themselves as separate source packages, e.g.
+    librust-kasumi-dev and librust-kasumi-backend-dev).
+
+ 2. Generate the orig tarball from the source tree and unpack it into this
+    directory as ../baidunetdisk-rs_<version>.orig.tar.xz.
+
+ 3. Build:
+
+        dpkg-buildpackage -b -us -uc
+
+The resulting binary package is baidunetdisk-rs_<version>_<arch>.deb. The
+upstream asset directory (SVG icons) is resolved relative to the executable
+(/usr/lib/baidunetdisk-rs/assets), or with the BAIDUNETDISK_ASSETS environment
+variable, and otherwise falls back to the build-time source path.

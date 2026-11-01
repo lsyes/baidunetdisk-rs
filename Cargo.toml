@@ -1,0 +1,39 @@
+[package]
+name = "baidunetdisk-rs"
+version = "0.1.0"
+edition = "2024"
+description = "Pure-Rust third-party Baidu Netdisk desktop client built on kasumi"
+license = "GPL-3.0-only"
+
+[dependencies]
+kasumi = { path = "../kasumi/crates/kasumi" }
+kasumi-core = { path = "../kasumi/crates/kasumi-core" }
+kasumi-backend = { path = "../kasumi/crates/kasumi-backend", default-features = false, features = ["wgpu"] }
+
+anyhow = "1"
+arboard = { version = "3.7", default-features = false, features = ["wayland-data-control"] }
+base64 = "0.22"
+chrono = { version = "0.4", default-features = false, features = ["clock"] }
+encoding_rs = "0.8"
+hayro = { version = "0.8", default-features = false, features = ["embed-fonts", "embed-cmaps"] }
+image = { version = "0.25", default-features = false, features = ["bmp", "gif", "jpeg", "png", "webp"] }
+md-5 = "0.10"
+num_cpus = "1"
+rand = "0.8"
+regex = "1"
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "json", "gzip", "native-tls-vendored"] }
+rsa = { version = "0.9", features = ["sha2"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+urlencoding = "2"
+uuid = { version = "1", features = ["v4"] }
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 2

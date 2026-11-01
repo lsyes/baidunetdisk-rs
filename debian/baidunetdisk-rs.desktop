@@ -1,0 +1,21 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Baidu Netdisk RS
+Name[zh_CN]=百度网盘
+Name[zh_TW]=百度網盤
+GenericName=Cloud Storage Client
+GenericName[zh_CN]=网盘客户端
+GenericName[zh_TW]=雲端硬碟用戶端
+Comment=Third-party Baidu Netdisk desktop client written in pure Rust
+Comment[zh_CN]=纯 Rust 实现的第三方百度网盘桌面客户端
+Comment[zh_TW]=純 Rust 實作的第三方百度網盤桌面用戶端
+Exec=baidunetdisk-rs %U
+TryExec=baidunetdisk-rs
+Icon=baidunetdisk-rs
+Terminal=false
+Categories=Network;FileTransfer;Qt;
+Keywords=baidu;netdisk;pan;cloud;storage;download;网盘;百度;
+Keywords[zh_CN]=百度;网盘;云盘;下载;
+StartupNotify=true
+StartupWMClass=baidunetdisk-rs

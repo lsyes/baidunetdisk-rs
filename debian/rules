@@ -1,0 +1,41 @@
+#!/usr/bin/make -f
+
+# Debhelper compat 13 implies --buildsystem=cargo, which runs
+#   cargo build --release --offline --locked
+# and installs the binary to debian/baidunetdisk-rs/usr/bin/baidunetdisk-rs.
+# `debian/patches/cargo-tarball.patch` rewrites the workspace's path
+# dependencies into crates.io requirements; dh_cargo_clean reverts it after
+# the build so the source tree is left untouched.
+%:
+	dh $@
+
+# Build with all cores (the release profile uses thin LTO, so this matters).
+export DEB_BUILD_OPTIONS := $(filter-out parallel=%,$(DEB_BUILD_OPTIONS)) parallel=$(shell nproc 2>/dev/null || echo 1)
+
+# GUI binary: skip the automatic dbgsym split unless explicitly enabled.
+override_dh_strip:
+	dh_strip --no-automatic-dbgsym
+
+# `dh_auto_test` would run `cargo test`, compiling the binary a second time
+# with the test harness. That doubles the build time for a UI client, so the
+# tests are not repeated here; run `cargo test` in the source tree instead.
+override_dh_auto_test:
+
+# Extra runtime files: menu entry and launcher icons.
+override_dh_auto_install:
+	dh_auto_install
+	install -d debian/baidunetdisk-rs/usr/share/applications
+	install -m 0644 debian/baidunetdisk-rs.desktop \
+		debian/baidunetdisk-rs/usr/share/applications/baidunetdisk-rs.desktop
+	install -d debian/baidunetdisk-rs/usr/share/icons/hicolor/scalable/apps
+	install -m 0644 assets/branding/logo.svg \
+		debian/baidunetdisk-rs/usr/share/icons/hicolor/scalable/apps/baidunetdisk-rs.svg
+	for size in 16 24 32 48 64 128 256; do \
+		install -D -m 0644 debian/icons/baidunetdisk-rs-$$size.png \
+			debian/baidunetdisk-rs/usr/share/icons/hicolor/$${size}x$${size}/apps/baidunetdisk-rs.png; \
+	done
+
+# Cache/target directories of a possible in-tree build are not shipped.
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -rf target/debian

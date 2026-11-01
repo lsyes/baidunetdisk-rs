@@ -1,0 +1,35 @@
+Source: baidunetdisk-rs
+Section: net
+Priority: optional
+Maintainer: lsyes <139*****56@users.noreply.example>
+Build-Depends:
+ debhelper-compat (= 13),
+ cargo (>= 1.88),
+ rustc (>= 1.88),
+ pkg-config,
+ libssl-dev,
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+Homepage: https://github.com/lsyes/kasumi
+Vcs-Git: https://github.com/lsyes/kasumi.git
+
+Package: baidunetdisk-rs
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Recommends:
+ xdg-utils,
+Suggests:
+ fonts-noto-cjk,
+Description: 纯 Rust 实现的第三方百度网盘桌面客户端
+ Baidu Netdisk RS 是百度网盘 Linux 桌面客户端，使用纯 Rust 编写的
+ kasumi 即时模式 GUI 框架和 wgpu 渲染后端实现。
+ .
+ 功能包括：
+  * 浏览、搜索、新建目录、重命名、移动、复制和删除网盘文件
+  * 多连接分片下载，支持断点续传、暂停和队列并发
+  * 分片上传（precreate / superfile2 / commit）
+  * 分享链接创建、解析与转存
+  * 内置预览：文本、Markdown、图片和 PDF（PDF 由纯 Rust 的 hayro 渲染）
+  * 组合详细信息的预览、二维码扫码登录与 Cookie 登录

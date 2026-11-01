@@ -1,0 +1,9 @@
+baidunetdisk-rs (0.1.0-1) unstable; urgency=low
+
+  * Initial release of the pure-Rust Baidu Netdisk desktop client:
+    - multi-connection segmented downloads with resume and queueing
+    - chunked uploads, share creation/transfer and file management
+    - built-in previewer for text, Markdown, images and PDF (hayro)
+    - wgpu renderer with per-image GPU textures for large previews
+
+ -- lsyes <139*****56@users.noreply.example>  Sun, 01 Nov 2026 15:50:00 +0800
